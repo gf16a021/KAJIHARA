@@ -1,0 +1,15 @@
+version: '3'
+services:
+  unbound:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - "53:53/udp"
+      - "53:53/tcp"
+    restart: always
+    volumes:
+      - ./anel-oecu.org.conf:/etc/unbound/unbound.conf.d/anel-oecu.org.conf
+      - ./unbound.conf:/etc/unbound/unbound.conf.d/unbound.conf
+      - ./resolv.conf:/etc/resolv.conf
+    command: /usr/sbin/unbound -d
